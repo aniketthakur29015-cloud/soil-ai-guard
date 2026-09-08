@@ -90,12 +90,14 @@ function SettingsPage() {
 
         <Panel title="Notification Settings">
           <ul className="space-y-3">
-            {[
-              ["disease", "Disease risk alerts"],
-              ["weather", "Weather warnings"],
-              ["satellite", "New satellite image"],
-              ["reports", "Monthly report ready"],
-            ].map(([key, label]) => (
+            {(
+              [
+                { key: "disease", label: "Disease risk alerts" },
+                { key: "weather", label: "Weather warnings" },
+                { key: "satellite", label: "New satellite image" },
+                { key: "reports", label: "Monthly report ready" },
+              ] as const
+            ).map(({ key, label }) => (
               <li key={key} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                 <span className="truncate text-sm font-semibold">{label}</span>
                 <Switch
