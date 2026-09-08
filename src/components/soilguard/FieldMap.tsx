@@ -22,7 +22,7 @@ export function polygonArea(points: Point[]) {
     a += p.x * q.y - q.x * p.y;
   }
   const pctArea = Math.abs(a / 2); // in percent²
-  return (pctArea / 10000) * 38.44; // 620m x 620m ≈ 38.44 ha
+  return (pctArea / 10000) * 15.9; // scene ≈ 399 m x 399 m ≈ 15.9 ha
 }
 
 export function polygonCenter(points: Point[]) {

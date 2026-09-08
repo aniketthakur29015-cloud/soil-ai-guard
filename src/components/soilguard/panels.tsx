@@ -132,7 +132,7 @@ export function SoilPropertiesPanel() {
             >
               {s.label.slice(0, 2)}
             </span>
-            <p className="truncate text-xs text-muted-foreground">{s.label}</p>
+            <p className="text-xs leading-tight text-muted-foreground">{s.label}</p>
             <p className="mt-0.5 text-lg font-extrabold">{s.value}</p>
           </div>
         ))}
@@ -161,7 +161,7 @@ export function WeatherPanel() {
                 <Icon className="h-4.5 w-4.5" />
               </span>
               <p className="text-lg font-extrabold">{w.value}</p>
-              <p className="truncate text-xs text-muted-foreground">{w.label}</p>
+              <p className="text-xs leading-tight text-muted-foreground">{w.label}</p>
             </div>
           );
         })}

@@ -79,9 +79,9 @@ export function FieldWorkspace() {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+      <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
         <Panel className="!p-0 overflow-hidden">
-          <div className="grid gap-4 p-4 sm:p-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+          <div className="grid gap-4 p-4 sm:p-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
             <div className="lg:col-span-2 grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <div className="min-w-0">
                 <h2 className="text-xl font-bold">Select Your Field</h2>
@@ -341,12 +341,12 @@ export function QuickActions() {
           <Link
             key={label}
             to={to}
-            className="card-hover flex items-center gap-3 rounded-xl border border-border px-4 py-4 text-sm font-semibold"
+            className="card-hover flex items-center gap-3 rounded-xl border border-border px-4 py-4 text-sm leading-tight font-semibold"
           >
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-mint text-forest">
               <Icon className="h-4 w-4" />
             </span>
-            <span className="truncate">{label}</span>
+            <span className="min-w-0">{label}</span>
           </Link>
         ))}
       </div>
