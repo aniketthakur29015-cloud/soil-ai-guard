@@ -216,7 +216,7 @@ export function FieldMap({
 
         {/* Layer toggle */}
         <div
-          className="absolute bottom-14 left-3 z-20 overflow-hidden rounded-lg bg-white/95 shadow-md sm:top-16 sm:bottom-auto sm:left-auto sm:right-3"
+          className="absolute top-16 right-3 z-20 overflow-hidden rounded-lg bg-white/95 shadow-md"
           onClick={(e) => e.stopPropagation()}
         >
           {(["satellite", "map"] as const).map((l) => (
