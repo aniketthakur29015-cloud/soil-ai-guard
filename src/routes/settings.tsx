@@ -101,7 +101,7 @@ function SettingsPage() {
               <li key={key} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                 <span className="truncate text-sm font-semibold">{label}</span>
                 <Switch
-                  checked={notif[key as keyof typeof notif]}
+                  checked={notif[key]}
                   onCheckedChange={(v) => {
                     setNotif((n) => ({ ...n, [key]: v }));
                     toast(`${label} ${v ? "on" : "off"}`);
