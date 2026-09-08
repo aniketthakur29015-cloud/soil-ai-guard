@@ -30,7 +30,7 @@ export function HealthGauge({
         role="img"
         aria-label={`Health score ${score} out of 100`}
       >
-        <g transform="rotate(129 90 90)">
+        <g transform="rotate(140.4 90 90)">
           <circle
             cx={90}
             cy={90}

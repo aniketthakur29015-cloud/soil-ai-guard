@@ -121,7 +121,7 @@ const soilIcons: Record<string, string> = {
 export function SoilPropertiesPanel() {
   return (
     <Panel title="Soil Properties" subtitle="SoilGrids">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-3 gap-3">
         {soilProperties.map((s) => (
           <div key={s.label} className="rounded-xl border border-border p-3 text-center">
             <span
@@ -152,7 +152,7 @@ const weatherTones = {
 export function WeatherPanel() {
   return (
     <Panel title="Weather" subtitle="NASA POWER">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3">
         {weatherSeason.map((w) => {
           const Icon = weatherIcons[w.key];
           return (

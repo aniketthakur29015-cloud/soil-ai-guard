@@ -265,12 +265,11 @@ export function FieldWorkspace() {
               </div>
             )}
           </Panel>
-
-          <DiseasePanel right={<ViewDetailsLink onClick={() => toast("Opening Risk Intelligence details")} />} />
         </div>
       </div>
 
       {/* AI insight */}
+      <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
       <Panel className="border-leaf/30 bg-gradient-to-br from-mint/70 to-card">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
           <div className="min-w-0">
@@ -308,6 +307,8 @@ export function FieldWorkspace() {
           </button>
         </div>
       </Panel>
+      <DiseasePanel right={<ViewDetailsLink onClick={() => toast("Opening Risk Intelligence details")} />} />
+      </div>
     </div>
   );
 }
@@ -336,7 +337,7 @@ export function QuickActions() {
   ];
   return (
     <Panel title="Quick Actions">
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3">
         {actions.map(({ label, icon: Icon, to }) => (
           <Link
             key={label}
