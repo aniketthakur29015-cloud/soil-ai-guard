@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActionPlanRouteImport } from './routes/action-plan'
+import { Route as FieldMapRouteImport } from './routes/field-map'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActionPlanRoute = ActionPlanRouteImport.update({
+  id: '/action-plan',
+  path: '/action-plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FieldMapRoute = FieldMapRouteImport.update({
+  id: '/field-map',
+  path: '/field-map',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/action-plan': typeof ActionPlanRoute
+  '/field-map': typeof FieldMapRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/action-plan': typeof ActionPlanRoute
+  '/field-map': typeof FieldMapRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/action-plan': typeof ActionPlanRoute
+  '/field-map': typeof FieldMapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/action-plan' | '/field-map'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/action-plan' | '/field-map'
+  id: '__root__' | '/' | '/action-plan' | '/field-map'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActionPlanRoute: typeof ActionPlanRoute
+  FieldMapRoute: typeof FieldMapRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/action-plan': {
+      id: '/action-plan'
+      path: '/action-plan'
+      fullPath: '/action-plan'
+      preLoaderRoute: typeof ActionPlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/field-map': {
+      id: '/field-map'
+      path: '/field-map'
+      fullPath: '/field-map'
+      preLoaderRoute: typeof FieldMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActionPlanRoute: ActionPlanRoute,
+  FieldMapRoute: FieldMapRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
