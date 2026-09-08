@@ -111,7 +111,7 @@ export function FieldMap({
         ref={ref}
         onClick={handleClick}
         className={cn(
-          "relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border select-none sm:aspect-[16/11]",
+          "relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border select-none",
           mode === "draw" && "cursor-crosshair",
         )}
       >

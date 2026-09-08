@@ -271,14 +271,26 @@ export function FieldWorkspace() {
       {/* AI insight */}
       <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
       <Panel className="border-leaf/30 bg-gradient-to-br from-mint/70 to-card">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+        <div>
           <div className="min-w-0">
+            <div className="mb-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
             <p className="flex items-center gap-2 text-sm font-bold text-forest">
               <span className={cn("grid h-8 w-8 place-items-center rounded-xl bg-forest text-white", aiLoading && "ai-pulse")}>
                 <Sparkles className="h-4 w-4" />
               </span>
               AI Insight
             </p>
+            <button
+              type="button"
+              onClick={generateReport}
+              disabled={aiLoading}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-forest px-4 py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+            >
+              {aiLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+              <span className="hidden sm:inline">{aiLoading ? "Thinking…" : "Generate Detailed AI Report"}</span>
+              <span className="sm:hidden">{aiLoading ? "Thinking…" : "AI Report"}</span>
+            </button>
+            </div>
             <p className="mt-3 text-sm font-medium">{aiInsight.summary}</p>
             <ol className="mt-4 grid gap-2 sm:grid-cols-2">
               {aiInsight.recommendations.map((r, i) => (
@@ -296,15 +308,6 @@ export function FieldWorkspace() {
               </p>
             )}
           </div>
-          <button
-            type="button"
-            onClick={generateReport}
-            disabled={aiLoading}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-forest px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-70"
-          >
-            {aiLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-            {aiLoading ? "Thinking…" : "Generate Detailed AI Report"}
-          </button>
         </div>
       </Panel>
       <DiseasePanel right={<ViewDetailsLink onClick={() => toast("Opening Risk Intelligence details")} />} />
