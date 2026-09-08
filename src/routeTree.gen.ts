@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActionPlanRouteImport } from './routes/action-plan'
+import { Route as AnalyzeSoilRouteImport } from './routes/analyze-soil'
+import { Route as CompareRouteImport } from './routes/compare'
 import { Route as FieldMapRouteImport } from './routes/field-map'
+import { Route as RiskIntelligenceRouteImport } from './routes/risk-intelligence'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +26,86 @@ const ActionPlanRoute = ActionPlanRouteImport.update({
   path: '/action-plan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyzeSoilRoute = AnalyzeSoilRouteImport.update({
+  id: '/analyze-soil',
+  path: '/analyze-soil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FieldMapRoute = FieldMapRouteImport.update({
   id: '/field-map',
   path: '/field-map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RiskIntelligenceRoute = RiskIntelligenceRouteImport.update({
+  id: '/risk-intelligence',
+  path: '/risk-intelligence',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/action-plan': typeof ActionPlanRoute
+  '/analyze-soil': typeof AnalyzeSoilRoute
+  '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/risk-intelligence': typeof RiskIntelligenceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/action-plan': typeof ActionPlanRoute
+  '/analyze-soil': typeof AnalyzeSoilRoute
+  '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/risk-intelligence': typeof RiskIntelligenceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/action-plan': typeof ActionPlanRoute
+  '/analyze-soil': typeof AnalyzeSoilRoute
+  '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/risk-intelligence': typeof RiskIntelligenceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/action-plan' | '/field-map'
+  fullPaths:
+    | '/'
+    | '/action-plan'
+    | '/analyze-soil'
+    | '/compare'
+    | '/field-map'
+    | '/risk-intelligence'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/action-plan' | '/field-map'
-  id: '__root__' | '/' | '/action-plan' | '/field-map'
+  to:
+    | '/'
+    | '/action-plan'
+    | '/analyze-soil'
+    | '/compare'
+    | '/field-map'
+    | '/risk-intelligence'
+  id:
+    | '__root__'
+    | '/'
+    | '/action-plan'
+    | '/analyze-soil'
+    | '/compare'
+    | '/field-map'
+    | '/risk-intelligence'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActionPlanRoute: typeof ActionPlanRoute
+  AnalyzeSoilRoute: typeof AnalyzeSoilRoute
+  CompareRoute: typeof CompareRoute
   FieldMapRoute: typeof FieldMapRoute
+  RiskIntelligenceRoute: typeof RiskIntelligenceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +124,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActionPlanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analyze-soil': {
+      id: '/analyze-soil'
+      path: '/analyze-soil'
+      fullPath: '/analyze-soil'
+      preLoaderRoute: typeof AnalyzeSoilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/field-map': {
       id: '/field-map'
       path: '/field-map'
       fullPath: '/field-map'
       preLoaderRoute: typeof FieldMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risk-intelligence': {
+      id: '/risk-intelligence'
+      path: '/risk-intelligence'
+      fullPath: '/risk-intelligence'
+      preLoaderRoute: typeof RiskIntelligenceRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +158,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActionPlanRoute: ActionPlanRoute,
+  AnalyzeSoilRoute: AnalyzeSoilRoute,
+  CompareRoute: CompareRoute,
   FieldMapRoute: FieldMapRoute,
+  RiskIntelligenceRoute: RiskIntelligenceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
