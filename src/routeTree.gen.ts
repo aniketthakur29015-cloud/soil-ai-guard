@@ -14,7 +14,9 @@ import { Route as ActionPlanRouteImport } from './routes/action-plan'
 import { Route as AnalyzeSoilRouteImport } from './routes/analyze-soil'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as FieldMapRouteImport } from './routes/field-map'
+import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RiskIntelligenceRouteImport } from './routes/risk-intelligence'
+import { Route as SettingsRouteImport } from './routes/settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,9 +43,19 @@ const FieldMapRoute = FieldMapRouteImport.update({
   path: '/field-map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RiskIntelligenceRoute = RiskIntelligenceRouteImport.update({
   id: '/risk-intelligence',
   path: '/risk-intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -53,7 +65,9 @@ export interface FileRoutesByFullPath {
   '/analyze-soil': typeof AnalyzeSoilRoute
   '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/reports': typeof ReportsRoute
   '/risk-intelligence': typeof RiskIntelligenceRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +75,9 @@ export interface FileRoutesByTo {
   '/analyze-soil': typeof AnalyzeSoilRoute
   '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/reports': typeof ReportsRoute
   '/risk-intelligence': typeof RiskIntelligenceRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +86,9 @@ export interface FileRoutesById {
   '/analyze-soil': typeof AnalyzeSoilRoute
   '/compare': typeof CompareRoute
   '/field-map': typeof FieldMapRoute
+  '/reports': typeof ReportsRoute
   '/risk-intelligence': typeof RiskIntelligenceRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,7 +98,9 @@ export interface FileRouteTypes {
     | '/analyze-soil'
     | '/compare'
     | '/field-map'
+    | '/reports'
     | '/risk-intelligence'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -88,7 +108,9 @@ export interface FileRouteTypes {
     | '/analyze-soil'
     | '/compare'
     | '/field-map'
+    | '/reports'
     | '/risk-intelligence'
+    | '/settings'
   id:
     | '__root__'
     | '/'
@@ -96,7 +118,9 @@ export interface FileRouteTypes {
     | '/analyze-soil'
     | '/compare'
     | '/field-map'
+    | '/reports'
     | '/risk-intelligence'
+    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,7 +129,9 @@ export interface RootRouteChildren {
   AnalyzeSoilRoute: typeof AnalyzeSoilRoute
   CompareRoute: typeof CompareRoute
   FieldMapRoute: typeof FieldMapRoute
+  ReportsRoute: typeof ReportsRoute
   RiskIntelligenceRoute: typeof RiskIntelligenceRoute
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,11 +171,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FieldMapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/risk-intelligence': {
       id: '/risk-intelligence'
       path: '/risk-intelligence'
       fullPath: '/risk-intelligence'
       preLoaderRoute: typeof RiskIntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -161,7 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyzeSoilRoute: AnalyzeSoilRoute,
   CompareRoute: CompareRoute,
   FieldMapRoute: FieldMapRoute,
+  ReportsRoute: ReportsRoute,
   RiskIntelligenceRoute: RiskIntelligenceRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
