@@ -330,9 +330,9 @@ export function FieldWorkspace() {
               <span className="sm:hidden">{aiLoading ? "Thinking…" : "AI Report"}</span>
             </button>
             </div>
-            <p className="mt-3 text-sm font-medium">{aiInsight.summary}</p>
+            <p className="mt-3 text-sm font-medium">{aiLoading ? "Reading your field data and thinking…" : insight.summary}</p>
             <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-              {aiInsight.recommendations.map((r, i) => (
+              {insight.recommendations.map((r, i) => (
                 <li key={r} className="flex items-start gap-2.5 rounded-xl bg-card/80 px-3 py-2.5 text-sm">
                   <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-leaf/15 text-[11px] font-bold text-leaf">
                     {i + 1}
