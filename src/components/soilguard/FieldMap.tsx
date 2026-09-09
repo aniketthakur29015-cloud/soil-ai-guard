@@ -61,19 +61,23 @@ export function FieldMap(props: FieldMapProps) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  const placeholder = (
+    <div className="grid aspect-[4/3] w-full place-items-center rounded-2xl border border-border bg-mint/50">
+      <span className="flex items-center gap-2 text-sm font-semibold text-forest">
+        <Loader2 className="h-4 w-4 animate-spin" /> Loading satellite map…
+      </span>
+    </div>
+  );
+
   return (
     <div className={cn("space-y-3", props.className)}>
-      <Suspense
-        fallback={
-          <div className="grid aspect-[4/3] w-full place-items-center rounded-2xl border border-border bg-mint/50">
-            <span className="flex items-center gap-2 text-sm font-semibold text-forest">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading satellite map…
-            </span>
-          </div>
-        }
-      >
-        {mounted && <LeafletFieldMap {...props} />}
-      </Suspense>
+      {mounted ? (
+        <Suspense fallback={placeholder}>
+          <LeafletFieldMap {...props} />
+        </Suspense>
+      ) : (
+        placeholder
+      )}
     </div>
   );
 }
