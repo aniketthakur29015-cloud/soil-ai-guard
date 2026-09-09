@@ -21,7 +21,7 @@ export type FieldInsight = {
 const MODEL = "google/gemini-3.8-flash";
 
 export const generateFieldInsight = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => InsightInput.parse(input))
+  .validator((input: unknown) => InsightInput.parse(input))
   .handler(async ({ data }): Promise<FieldInsight> => {
     const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI is not configured for this app.");

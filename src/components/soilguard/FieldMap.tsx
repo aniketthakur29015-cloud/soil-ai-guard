@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -58,6 +58,9 @@ const LeafletFieldMap = lazy(() =>
 );
 
 export function FieldMap(props: FieldMapProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <div className={cn("space-y-3", props.className)}>
       <Suspense
@@ -69,7 +72,7 @@ export function FieldMap(props: FieldMapProps) {
           </div>
         }
       >
-        <LeafletFieldMap {...props} />
+        {mounted && <LeafletFieldMap {...props} />}
       </Suspense>
     </div>
   );
