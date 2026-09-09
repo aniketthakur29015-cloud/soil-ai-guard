@@ -18,10 +18,18 @@ import {
   Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
-import { DEFAULT_POLY, FieldMap, fmtLat, fmtLon, polygonArea, polygonCenter, toLatLon, type Point } from "./FieldMap";
+import { DEFAULT_POLY, FieldMap, fmtLat, fmtLon, polygonArea, polygonCenter, type Point } from "./FieldMap";
 import { HealthGauge } from "./HealthGauge";
 import { DiseasePanel, Panel, SatelliteIndicators, ViewDetailsLink } from "./panels";
-import { aiInsight, fieldHealth } from "@/data/soilguard";
+import {
+  aiInsight,
+  diseases,
+  fieldHealth,
+  satelliteIndicators,
+  soilProperties,
+  weatherNow,
+} from "@/data/soilguard";
+import { generateFieldInsight, type FieldInsight } from "@/lib/ai-insight.functions";
 import { cn } from "@/lib/utils";
 
 export function FieldWorkspace() {
