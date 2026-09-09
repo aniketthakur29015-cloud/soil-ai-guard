@@ -91,7 +91,7 @@ export function LeafletFieldMap({ points, onChange, mode, onModeChange }: FieldM
   return (
     <div
       className={cn(
-        "relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border",
+        "relative h-[420px] min-h-[320px] w-full overflow-hidden rounded-2xl border border-border sm:h-[460px]",
         mode === "draw" && "[&_.leaflet-container]:cursor-crosshair",
       )}
     >
@@ -216,7 +216,7 @@ export function LeafletFieldMap({ points, onChange, mode, onModeChange }: FieldM
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-8 left-3 z-[600] flex flex-wrap items-center gap-3 rounded-lg bg-white/95 px-3 py-2 text-[11px] font-medium shadow-md">
+      <div className="absolute bottom-8 left-3 z-[600] hidden flex-wrap sm:flex items-center gap-3 rounded-lg bg-white/95 px-3 py-2 text-[11px] font-medium shadow-md">
         <span className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full bg-leaf" /> Field Boundary
         </span>

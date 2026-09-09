@@ -62,7 +62,7 @@ export function FieldMap(props: FieldMapProps) {
   useEffect(() => setMounted(true), []);
 
   const placeholder = (
-    <div className="grid aspect-[4/3] w-full place-items-center rounded-2xl border border-border bg-mint/50">
+    <div className="grid h-[420px] w-full place-items-center sm:h-[460px] rounded-2xl border border-border bg-mint/50">
       <span className="flex items-center gap-2 text-sm font-semibold text-forest">
         <Loader2 className="h-4 w-4 animate-spin" /> Loading satellite map…
       </span>
