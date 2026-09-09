@@ -18,10 +18,18 @@ import {
   Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
-import { DEFAULT_POLY, FieldMap, fmtLat, fmtLon, polygonArea, polygonCenter, toLatLon, type Point } from "./FieldMap";
+import { DEFAULT_POLY, FieldMap, fmtLat, fmtLon, polygonArea, polygonCenter, type Point } from "./FieldMap";
 import { HealthGauge } from "./HealthGauge";
 import { DiseasePanel, Panel, SatelliteIndicators, ViewDetailsLink } from "./panels";
-import { aiInsight, fieldHealth } from "@/data/soilguard";
+import {
+  aiInsight,
+  diseases,
+  fieldHealth,
+  satelliteIndicators,
+  soilProperties,
+  weatherNow,
+} from "@/data/soilguard";
+import { generateFieldInsight, type FieldInsight } from "@/lib/ai-insight.functions";
 import { cn } from "@/lib/utils";
 
 export function FieldWorkspace() {
@@ -32,33 +40,63 @@ export function FieldWorkspace() {
   const [showCorners, setShowCorners] = useState(true);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiReady, setAiReady] = useState(false);
+  const [insight, setInsight] = useState<FieldInsight>(aiInsight);
 
   const area = useMemo(() => polygonArea(points), [points]);
   const center = useMemo(() => polygonCenter(points.length ? points : DEFAULT_POLY), [points]);
   const complete = points.length >= 3;
 
-  const runAnalysis = () => {
+  const askAi = async (detailed: boolean) => {
+    return generateFieldInsight({
+      data: {
+        areaHa: area,
+        lat: center.lat,
+        lng: center.lng,
+        crop: "Wheat",
+        weather: `${weatherNow.temp}, ${weatherNow.condition}, humidity ${weatherNow.humidity}, rainfall 24h ${weatherNow.rainfall24h}, wind ${weatherNow.wind}`,
+        soil: soilProperties.map((s) => `${s.label} ${s.value}`).join(", "),
+        satellite: satelliteIndicators.map((s) => `${s.label} ${s.value} (${s.level})`).join(", "),
+        diseases: diseases.map((d) => `${d.name} ${d.probability}% (${d.level})`).join(", "),
+        detailed,
+      },
+    });
+  };
+
+  const runAnalysis = async () => {
     if (!complete) {
       toast.error("Mark a field on the map first");
       return;
     }
     setAnalyzing(true);
     setAnalyzed(false);
-    setTimeout(() => {
-      setAnalyzing(false);
-      setAnalyzed(true);
-      toast.success("Field analysed", { description: "Soil, weather and satellite data updated." });
-    }, 1800);
-  };
-
-  const generateReport = () => {
     setAiLoading(true);
     setAiReady(false);
-    setTimeout(() => {
+    try {
+      const result = await askAi(false);
+      if (result.recommendations.length) setInsight(result);
+      toast.success("Field analysed", { description: "Soil, weather and satellite data updated." });
+    } catch (error) {
+      toast.error("AI analysis failed", { description: (error as Error).message });
+    } finally {
+      setAnalyzing(false);
+      setAnalyzed(true);
       setAiLoading(false);
+    }
+  };
+
+  const generateReport = async () => {
+    setAiLoading(true);
+    setAiReady(false);
+    try {
+      const result = await askAi(true);
+      if (result.recommendations.length) setInsight(result);
       setAiReady(true);
       toast.success("Detailed AI report generated");
-    }, 2000);
+    } catch (error) {
+      toast.error("AI report failed", { description: (error as Error).message });
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const geojson = JSON.stringify(
@@ -67,10 +105,11 @@ export function FieldWorkspace() {
       properties: { name: "Selected Field", area_ha: +area.toFixed(2) },
       geometry: {
         type: "Polygon",
-        coordinates: [[...points, points[0]].filter(Boolean).map((p) => {
-          const { lat, lon } = toLatLon(p as Point);
-          return [+lon.toFixed(4), +lat.toFixed(4)];
-        })],
+        coordinates: [
+          [...points, points[0]]
+            .filter(Boolean)
+            .map((p) => [+(p as Point).lng.toFixed(5), +(p as Point).lat.toFixed(5)]),
+        ],
       },
     },
     null,
@@ -291,9 +330,9 @@ export function FieldWorkspace() {
               <span className="sm:hidden">{aiLoading ? "Thinking…" : "AI Report"}</span>
             </button>
             </div>
-            <p className="mt-3 text-sm font-medium">{aiInsight.summary}</p>
+            <p className="mt-3 text-sm font-medium">{aiLoading ? "Reading your field data and thinking…" : insight.summary}</p>
             <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-              {aiInsight.recommendations.map((r, i) => (
+              {insight.recommendations.map((r, i) => (
                 <li key={r} className="flex items-start gap-2.5 rounded-xl bg-card/80 px-3 py-2.5 text-sm">
                   <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-leaf/15 text-[11px] font-bold text-leaf">
                     {i + 1}
